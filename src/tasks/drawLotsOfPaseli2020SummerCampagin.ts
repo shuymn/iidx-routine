@@ -9,12 +9,16 @@ export const drawLotsOfPaseli2020SummerCampagin = async (
     return;
   }
 
-  await page.goto(
-    "https://p.eagate.573.jp/game/common/campaign/summer2020/campaign.html",
-    { waitUntil: "domcontentloaded" }
-  );
-  const btn: ElementHandle<HTMLElement> = await page.waitForSelector(
-    "#main-inner > div.cl_status > div.cl_status_ok > div > div.cl_draw_button.cl_drawable"
-  );
-  await btn.click();
+  try {
+    await page.goto(
+      "https://p.eagate.573.jp/game/common/campaign/summer2020/campaign.html",
+      { waitUntil: "domcontentloaded" }
+    );
+    const btn: ElementHandle<HTMLElement> = await page.waitForSelector(
+      "#main-inner > div.cl_status > div.cl_status_ok > div > div.cl_draw_button.cl_drawable"
+    );
+    await btn.click();
+  } catch (err) {
+    console.log(err);
+  }
 };

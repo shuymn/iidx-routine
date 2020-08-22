@@ -11,14 +11,21 @@ export const drawCardsOfNonoRush = async (page: Page): Promise<void> => {
     return;
   }
 
-  await page.goto("https://p.eagate.573.jp/game/bemani/wbr2020/01/card.html", {
-    waitUntil: "domcontentloaded",
-  });
+  try {
+    await page.goto(
+      "https://p.eagate.573.jp/game/bemani/wbr2020/01/card.html",
+      {
+        waitUntil: "domcontentloaded",
+      }
+    );
 
-  const sel = "#card" + choiceCardNumber();
-  const card: ElementHandle<HTMLElement> = await page.waitForSelector(sel);
-  await Promise.all([
-    card.evaluate((element) => element.click()),
-    page.waitForNavigation(),
-  ]);
+    const sel = "#card" + choiceCardNumber();
+    const card: ElementHandle<HTMLElement> = await page.waitForSelector(sel);
+    await Promise.all([
+      card.evaluate((element) => element.click()),
+      page.waitForNavigation(),
+    ]);
+  } catch (err) {
+    console.log(err);
+  }
 };

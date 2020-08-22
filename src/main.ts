@@ -36,9 +36,11 @@ import { uploadScoreToIST } from "./tasks/uploadScoreToIST";
 
     await login(page);
 
-    await uploadScoreToIST(page);
-    await drawLotsOfPaseli2020SummerCampagin(page);
-    await drawCardsOfNonoRush(page);
+    await Promise.all([
+      await uploadScoreToIST(page),
+      await drawLotsOfPaseli2020SummerCampagin(page),
+      await drawCardsOfNonoRush(page),
+    ]);
   } catch (err) {
     console.log(err);
   } finally {
