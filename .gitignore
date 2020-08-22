@@ -1,0 +1,14 @@
+# yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+yarn-error.log
+
+# node
+node_modules/
+
+# dotenv and direnv
+.env*
