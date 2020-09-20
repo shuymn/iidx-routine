@@ -4,7 +4,7 @@ import RecaptchaPlugin from "puppeteer-extra-plugin-recaptcha";
 import { TWOCAPTCHA_API_KEY, NODE_ENV } from "./consts";
 import { login } from "./login";
 import { drawCardsOfNonoRush } from "./tasks/drawCardsOfNonoRush";
-import { drawLotsOfPaseli2020SummerCampagin } from "./tasks/drawLotsOfPaseli2020SummerCampagin";
+import { uploadScoreToCPI } from "./tasks/uploadScoreToCPI";
 import { uploadScoreToIST } from "./tasks/uploadScoreToIST";
 
 (async () => {
@@ -36,11 +36,12 @@ import { uploadScoreToIST } from "./tasks/uploadScoreToIST";
 
     await login(page);
 
-    await Promise.all([
-      await uploadScoreToIST(page),
-      await drawLotsOfPaseli2020SummerCampagin(page),
-      await drawCardsOfNonoRush(page),
-    ]);
+    // event
+    await drawCardsOfNonoRush(page);
+
+    // score
+    await uploadScoreToCPI(page);
+    await uploadScoreToIST(page);
   } catch (err) {
     console.log(err);
   } finally {
