@@ -41,6 +41,10 @@ export const uploadScoreToIST = async (page: Page): Promise<void> => {
         attributeFilter: ["class"],
       });
     });
+
+    await page.waitForSelector(
+      "#iidxScoreTable > section > div > table > tbody > tr:nth-child(4)"
+    );
   } catch (err) {
     console.log(err);
   }
