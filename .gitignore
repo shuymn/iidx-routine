@@ -1,14 +1,31 @@
-# yarn
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
-yarn-error.log
-
 # node
 node_modules/
 
+# typescript
+*.js
+*.d.ts
+
+#jest
+!jest.config.js
+
+# webpack
+!webpack.config.js
+
 # direnv
 .envrc
+
+# chrome-aws-lambda
+chrome-aws-lambda/
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# artifacts
+dist/
+
+# Parcel default cache directory
+.parcel-cache
+
+# template
+template.yml
