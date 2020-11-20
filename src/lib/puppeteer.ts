@@ -5,7 +5,7 @@ import RecaptchaPlugin from "puppeteer-extra-plugin-recaptcha";
 import { log } from "./log";
 import { get2captchaApiKey } from "./secrets";
 
-const IMG_QPRO_PATTERN = /^https:\/\/p\.eagate\.573\.jp\/game\/2dx\/27\/common\/img_qpro\.html\?img=.+/g;
+const IMG_QPRO_PATTERN = /^https:\/\/p\.eagate\.573\.jp\/game\/2dx\/28\/common\/img_qpro\.html\?img=.+/g;
 const ABORT_RESOURCE_TYPES: ResourceType[] = ["image", "font"];
 
 const requestHandler = (request: Request): void => {
