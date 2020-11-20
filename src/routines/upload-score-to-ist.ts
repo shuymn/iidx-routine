@@ -10,7 +10,7 @@ export const uploadScoreToIst = async (dynamodb: DynamoDb, page: Page): Promise<
     await loginToEagate(dynamodb, page);
 
     // iidxの公式ページならどこでもいいので、とりあえずトップページに行く
-    await goto(page, "https://p.eagate.573.jp/game/2dx/27/top/index.html", {
+    await goto(page, "https://p.eagate.573.jp/game/2dx/28/top/index.html", {
       waitUntil: "domcontentloaded",
     });
 
