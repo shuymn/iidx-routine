@@ -18,7 +18,8 @@
     "typecheck": "tsc -p . --noEmit",
     "clean": "run-s clean:*",
     "clean:dist": "rimraf dist",
-    "clean:cdk.out": "rimraf cdk.out"
+    "clean:cdk.out": "rimraf cdk.out",
+    "update": "npx npm-check-updates -u && npm install"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.74.0",
