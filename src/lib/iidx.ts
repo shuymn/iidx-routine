@@ -3,7 +3,7 @@ import { DynamoDb } from "./dynamodb";
 import { loginToEagate } from "./eagate";
 import { goto } from "./puppeteer";
 
-const SCORE_PAGE_URL = "https://p.eagate.573.jp/game/2dx/27/djdata/score_download.html";
+const SCORE_PAGE_URL = "https://p.eagate.573.jp/game/2dx/28/djdata/score_download.html";
 
 export const getScore = async (dynamodb: DynamoDb, page: Page): Promise<string> => {
   const initialUrl = page.url();
