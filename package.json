@@ -16,6 +16,7 @@
     "synth": "cdk synth --no-staging > template.yml",
     "test": "jest",
     "typecheck": "tsc -p . --noEmit",
+    "lint": "eslint .",
     "clean": "run-s clean:*",
     "clean:dist": "rimraf dist",
     "clean:cdk.out": "rimraf cdk.out",
