@@ -58,7 +58,7 @@
     "@aws-cdk/core": "1.87.1",
     "aws-sdk": "2.834.0",
     "dayjs": "1.10.4",
-    "puppeteer": "5.5.0",
+    "puppeteer": "7.0.1",
     "puppeteer-extra": "3.1.15",
     "puppeteer-extra-plugin-recaptcha": "3.3.2",
     "source-map-support": "0.5.19"
