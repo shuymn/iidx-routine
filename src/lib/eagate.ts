@@ -1,5 +1,5 @@
 import * as dayjs from "dayjs";
-import { Page, ElementHandle } from "puppeteer";
+import { Page } from "puppeteer";
 import { getCookie } from "./cookie";
 import { DynamoDb } from "./dynamodb";
 import { CookieNotFoundError, CookieExpiredError, ApplicationError } from "./errors";
@@ -114,7 +114,10 @@ export const loginToEagate = async (dynamodb: DynamoDb, page: Page): Promise<voi
 
   // ログインする
   await goto(page, LOGIN_PAGE_URL, { waitUntil: "domcontentloaded" });
-  await page.evaluate("ea_common_template.login.show_loginform();");
+  await Promise.all([
+    page.evaluate("ea_common_template.login.show_loginform();"),
+    page.waitForNavigation(),
+  ]);
 
   const id = await page.waitForSelector("input[type='text']");
   await id.type(await getKonamiId());
@@ -122,13 +125,7 @@ export const loginToEagate = async (dynamodb: DynamoDb, page: Page): Promise<voi
   const pw = await page.waitForSelector("input[type='password']");
   await pw.type(await getKonamiPassword());
 
-  const button: ElementHandle<HTMLElement> = await page.waitForSelector(".cl_captchakindchg_btn");
-  await button.click();
-
-  // 2captchaを使って認証を通す
-  await page.solveRecaptchas();
-
-  await Promise.all([page.click("button[type='submit']"), page.waitForNavigation()]);
+  await Promise.all([page.click("#login-form > div.btn-area > p > a"), page.waitForNavigation()]);
 
   await putLoginCookie(dynamodb, page);
 };

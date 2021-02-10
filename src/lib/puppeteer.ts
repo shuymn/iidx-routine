@@ -1,9 +1,6 @@
 import * as chromium from "chrome-aws-lambda";
 import { DirectNavigationOptions, Page, Response, Browser, ResourceType, Request } from "puppeteer";
-import { addExtra } from "puppeteer-extra";
-import RecaptchaPlugin from "puppeteer-extra-plugin-recaptcha";
 import { log } from "./log";
-import { get2captchaApiKey } from "./secrets";
 
 const IMG_QPRO_PATTERN = /^https:\/\/p\.eagate\.573\.jp\/game\/2dx\/28\/common\/img_qpro\.html\?img=.+/g;
 const ABORT_RESOURCE_TYPES: ResourceType[] = ["image", "font"];
@@ -21,14 +18,7 @@ const requestHandler = (request: Request): void => {
 };
 
 export const launch = async (): Promise<Browser> => {
-  const puppeteer = addExtra(chromium.puppeteer);
-  puppeteer.use(
-    RecaptchaPlugin({
-      provider: { id: "2captcha", token: await get2captchaApiKey() },
-    })
-  );
-
-  return await puppeteer.launch({
+  return await chromium.puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
     executablePath: await chromium.executablePath,
