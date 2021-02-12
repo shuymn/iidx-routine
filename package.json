@@ -57,7 +57,7 @@
     "@aws-cdk/aws-lambda": "1.89.0",
     "@aws-cdk/aws-ssm": "1.89.0",
     "@aws-cdk/core": "1.89.0",
-    "aws-sdk": "2.841.0",
+    "aws-sdk": "2.843.0",
     "dayjs": "1.10.4",
     "puppeteer": "^5.5.0",
     "source-map-support": "0.5.19"
