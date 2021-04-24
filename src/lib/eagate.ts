@@ -1,8 +1,8 @@
-import * as dayjs from "dayjs";
-import { Page } from "puppeteer";
+import dayjs from "dayjs";
+import { Page } from "puppeteer-core";
 import { getCookie } from "./cookie";
 import { DynamoDb } from "./dynamodb";
-import { CookieNotFoundError, CookieExpiredError, ApplicationError } from "./errors";
+import { ApplicationError, CookieExpiredError, CookieNotFoundError } from "./errors";
 import { checkLoginStatus, goto } from "./puppeteer";
 import { getKonamiId, getKonamiPassword } from "./secrets";
 
@@ -79,7 +79,7 @@ const isMaintainance = async (page: Page): Promise<boolean> => {
   }
 
   return await div.evaluate(
-    (element) =>
+    (element: HTMLDivElement) =>
       Array.from(element.childNodes).find(
         (node) =>
           node.nodeName === "SPAN" &&
@@ -120,9 +120,15 @@ export const loginToEagate = async (dynamodb: DynamoDb, page: Page): Promise<voi
   ]);
 
   const id = await page.waitForSelector("input[type='text']");
+  if (id == null) {
+    throw new Error("could not find the input form of konami id");
+  }
   await id.type(await getKonamiId());
 
   const pw = await page.waitForSelector("input[type='password']");
+  if (pw == null) {
+    throw new Error("could not find the input form of konami password");
+  }
   await pw.type(await getKonamiPassword());
 
   await Promise.all([page.click("#login-form > div.btn-area > p > a"), page.waitForNavigation()]);

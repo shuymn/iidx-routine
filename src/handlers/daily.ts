@@ -1,7 +1,7 @@
-import { Browser, Page } from "puppeteer";
+import { Browser, Page } from "puppeteer-core";
 import { DynamoDb } from "../lib/dynamodb";
 import { log, LogLevel } from "../lib/log";
-import { newPage, launch } from "../lib/puppeteer";
+import { launch, newPage } from "../lib/puppeteer";
 import { uploadScoreToCpi } from "../routines/upload-score-to-cpi";
 import { uploadScoreToIst } from "../routines/upload-score-to-ist";
 

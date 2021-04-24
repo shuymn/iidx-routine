@@ -1,11 +1,18 @@
-import * as chromium from "chrome-aws-lambda";
-import { DirectNavigationOptions, Page, Response, Browser, ResourceType, Request } from "puppeteer";
+import Chromium from "chrome-aws-lambda";
+import {
+  Browser,
+  HTTPRequest,
+  HTTPResponse,
+  Page,
+  ResourceType,
+  WaitForOptions,
+} from "puppeteer-core";
 import { log } from "./log";
 
 const IMG_QPRO_PATTERN = /^https:\/\/p\.eagate\.573\.jp\/game\/2dx\/28\/common\/img_qpro\.html\?img=.+/g;
 const ABORT_RESOURCE_TYPES: ResourceType[] = ["image", "font"];
 
-const requestHandler = (request: Request): void => {
+const requestHandler = (request: HTTPRequest): void => {
   if (
     ABORT_RESOURCE_TYPES.includes(request.resourceType()) &&
     request.url().match(IMG_QPRO_PATTERN) === null
@@ -18,11 +25,11 @@ const requestHandler = (request: Request): void => {
 };
 
 export const launch = async (): Promise<Browser> => {
-  return await chromium.puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-    headless: chromium.headless,
+  return await Chromium.puppeteer.launch({
+    args: Chromium.args,
+    defaultViewport: Chromium.defaultViewport,
+    executablePath: await Chromium.executablePath,
+    headless: Chromium.headless,
   });
 };
 
@@ -42,8 +49,8 @@ export const checkElementExistance = async (page: Page, selector: string): Promi
 export const goto = async (
   page: Page,
   url: string,
-  options?: DirectNavigationOptions | undefined
-): Promise<Response | null> => {
+  options?: WaitForOptions | undefined
+): Promise<HTTPResponse> => {
   log.debug(`page.goto url: ${url} with options: ${JSON.stringify(options)}`);
   return await page.goto(url, options);
 };

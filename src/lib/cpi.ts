@@ -1,4 +1,4 @@
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 import { getCookie } from "./cookie";
 import { DynamoDb } from "./dynamodb";
 import { ApplicationError, CookieNotFoundError } from "./errors";
@@ -66,9 +66,15 @@ export const loginToCpi = async (dynamodb: DynamoDb, page: Page): Promise<void> 
   // ログインする
   await goto(page, LOGIN_PAGE_URL, { waitUntil: "domcontentloaded" });
   const id = await page.waitForSelector("#username");
+  if (id == null) {
+    throw new Error("could not find the input form of cpi id");
+  }
   await id.type(await getCpiId());
 
   const pw = await page.waitForSelector("#password");
+  if (pw == null) {
+    throw new Error("could not find the input form of cpi password");
+  }
   await pw.type(await getCpiPassword());
 
   await Promise.all([
