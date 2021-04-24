@@ -1,4 +1,4 @@
-import { ElementHandle, Page } from "puppeteer";
+import { ElementHandle, Page } from "puppeteer-core";
 import { DynamoDb } from "../lib/dynamodb";
 import { loginToEagate } from "../lib/eagate";
 import { log } from "../lib/log";
@@ -25,19 +25,27 @@ export const uploadScoreToIst = async (dynamodb: DynamoDb, page: Page): Promise<
 
     // スクリプトを実行すると表示されるログインフォームに必要事項を入力する
     const id = await page.waitForSelector("input[type='email']");
+    if (id == null) {
+      throw new Error("input form of id was not found");
+    }
     await id.type(await getIstId());
 
     const pw = await page.waitForSelector("input[type='password']");
+    if (pw == null) {
+      throw new Error("input form of password was not found");
+    }
     await pw.type(await getIstPassword());
 
     // ログインボタンを押す
     await page.click("button.button.is-large.is-info");
 
     // スコアを取得するボタンを待つ
-    const btn: ElementHandle<HTMLButtonElement> = await page.waitForSelector(
+    const btn: ElementHandle<HTMLButtonElement> | null = await page.waitForSelector(
       "#iidxScoreTable > section > div > div:nth-child(5) > button:nth-child(1)"
     );
-
+    if (btn == null) {
+      throw new Error("the button to get the score was not found");
+    }
     // ボタンが出現したとしても、 .is-loading があると押しても送信されないので、
     // mutatioh observerを使って要素の変更を検知し、 .is-loadingが外れるまで待つ
     await btn.evaluate((element) => {

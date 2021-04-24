@@ -1,4 +1,4 @@
-import { ElementHandle, Page } from "puppeteer";
+import { ElementHandle, Page } from "puppeteer-core";
 import { loginToCpi, LOGIN_PAGE_URL } from "../lib/cpi";
 import { DynamoDb } from "../lib/dynamodb";
 import { getScore } from "../lib/iidx";
@@ -38,9 +38,12 @@ export const uploadScoreToCpi = async (dynamodb: DynamoDb, page: Page): Promise<
     await goto(page, LOGIN_PAGE_URL, { waitUntil: "domcontentloaded" });
 
     // スコアを更新するページに行く
-    const anchor: ElementHandle<HTMLAnchorElement> = await page.waitForSelector(
+    const anchor: ElementHandle<HTMLAnchorElement> | null = await page.waitForSelector(
       "body > main > div > div > div:nth-child(1) > div.card-header.padding-sm > a"
     );
+    if (anchor == null) {
+      throw new Error("cound not find the link to go to the page to get the score");
+    }
     const href = await anchor.evaluate((element) => element.href);
     await goto(page, href, { waitUntil: "domcontentloaded" });
 
@@ -75,6 +78,9 @@ export const uploadScoreToCpi = async (dynamodb: DynamoDb, page: Page): Promise<
     const cpi = await page.waitForSelector(
       "body > main > div > div.users.view.content > div:nth-child(1) > div.card-body.pr-3.pl-3 > div > div.row > div.col-md-5.col-lg-4 > div:nth-child(2)"
     );
+    if (cpi == null) {
+      throw new Error("unable to obrain updated CPI data");
+    }
     const cpiValue = await cpi.evaluate((element) => element.textContent);
     if (cpiValue !== null) {
       // TODO: そのうちSlackとかに通知する
@@ -85,6 +91,9 @@ export const uploadScoreToCpi = async (dynamodb: DynamoDb, page: Page): Promise<
     const rank = await page.waitForSelector(
       "body > main > div > div.users.view.content > div:nth-child(1) > div.card-body.pr-3.pl-3 > div > div.row > div.col-md-5.col-lg-4 > div:nth-child(3)"
     );
+    if (rank == null) {
+      throw new Error("unable to obtain updated rank data");
+    }
     const rankValue = await rank.evaluate((element) => element.textContent);
     if (rankValue !== null) {
       // TODO: そのうちSlackとかに通知する
