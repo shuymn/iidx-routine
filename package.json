@@ -58,7 +58,7 @@
     "@aws-cdk/core": "1.100.0",
     "aws-sdk": "2.892.0",
     "dayjs": "1.10.4",
-    "puppeteer-core": "8.0.0",
+    "puppeteer-core": "9.0.0",
     "source-map-support": "0.5.19"
   }
 }
