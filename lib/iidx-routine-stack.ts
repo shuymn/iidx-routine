@@ -1,6 +1,6 @@
 import * as dynamodb from "@aws-cdk/aws-dynamodb";
-import * as events from "@aws-cdk/aws-events";
 import * as targets from "@aws-cdk/aws-events-targets";
+import * as events from "@aws-cdk/aws-events";
 import * as iam from "@aws-cdk/aws-iam";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as ssm from "@aws-cdk/aws-ssm";
