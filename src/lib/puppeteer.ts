@@ -9,7 +9,8 @@ import {
 } from "puppeteer-core";
 import { log } from "./log";
 
-const IMG_QPRO_PATTERN = /^https:\/\/p\.eagate\.573\.jp\/game\/2dx\/28\/common\/img_qpro\.html\?img=.+/g;
+const IMG_QPRO_PATTERN =
+  /^https:\/\/p\.eagate\.573\.jp\/game\/2dx\/28\/common\/img_qpro\.html\?img=.+/g;
 const ABORT_RESOURCE_TYPES: ResourceType[] = ["image", "font"];
 
 const requestHandler = (request: HTTPRequest): void => {
