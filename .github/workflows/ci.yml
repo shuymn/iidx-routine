@@ -20,9 +20,9 @@ jobs:
         uses: "actions/checkout@v2"
 
       - name: "Setup Node.js"
-        uses: "actions/setup-node@v2-beta"
+        uses: "actions/setup-node@v2"
         with:
-          node-version: "14"
+          node-version: "16"
 
       - uses: actions/cache@v2
         id: cache-node
@@ -51,9 +51,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
 
       - name: Use cache
         uses: actions/cache@v2
@@ -83,9 +83,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
 
       - name: Use cache
         uses: actions/cache@v2
