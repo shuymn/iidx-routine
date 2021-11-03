@@ -79,7 +79,7 @@ const isMaintainance = async (page: Page): Promise<boolean> => {
   }
 
   return await div.evaluate(
-    (element: HTMLDivElement) =>
+    (element: Element) =>
       Array.from(element.childNodes).find(
         (node) =>
           node.nodeName === "SPAN" &&
