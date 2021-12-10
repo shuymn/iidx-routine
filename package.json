@@ -58,7 +58,7 @@
     "@aws-cdk/core": "1.130.0",
     "aws-sdk": "2.1023.0",
     "dayjs": "1.10.7",
-    "puppeteer-core": "10.4.0",
+    "puppeteer-core": "13.0.0",
     "source-map-support": "0.5.21"
   },
   "volta": {
