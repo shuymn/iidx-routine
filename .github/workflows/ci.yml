@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: "16"
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache-node
         with:
           path: ~/.npm
@@ -56,7 +56,7 @@ jobs:
           node-version: "16"
 
       - name: Use cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
@@ -88,7 +88,7 @@ jobs:
           node-version: "16"
 
       - name: Use cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
